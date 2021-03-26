@@ -18,49 +18,102 @@ function App() {
 
 const AddContact = (props) => {
   let array = ["first name", "last name", "phone", "email"];
+  const [firstName, setFirstName] = useState("Mary");
+    useEffect( () => {
+      console.log("first changed", {firstName})
+    }, [firstName] );
+
+  const [lastName, setLastName] = useState("Smith");
+    useEffect( () => {
+      console.log("last changed", {lastName})
+    }, [lastName] );
+
+  const [email, setEmail] = useState("cheese@sauce.org");
+    useEffect( () => {
+      console.log("email changed", {email})
+    }, [email] );
+
+  var r = () => Math.floor(10*Math.random());
+  const [phone, setPhone] = useState(""+r()+r()+r()+r()+r()+r()+r()+r()+r()+r());
+    useEffect( () => {
+      console.log("phone changed", {phone})
+    }, [phone] );
+
+    let sendContactObject = () => {
+      let first_name = firstName, last_name = lastName, phone_number = phone;
+      let contactObject = { first_name, last_name, phone_number, email };
+      console.log("Add Contact button pressed", contactObject);
+    }
+
+    const onSubmitForm = async (e) => {
+      let first_name = firstName, last_name = lastName, phone_number = phone;
+      let contactObject = { first_name, last_name, phone_number, email };
+      e.preventDefault(); // prevents refreshing
+      try {
+        const body = contactObject ;
+        const response = await fetch("http://localhost:5000/contact", {
+          method: "POST", // fetch makes GET request by default
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body)
+        })
+        console.log(response);
+        console.log(contactObject);
+        window.location = "/"; // refresh after done sending
+      } catch (error) {
+        console.error(error.message);  
+      }
+    }
+ 
+
   return(
     <>
     <h2>{props.title}</h2>
-    <form>
+    <div>
       <label>{array[0]}
         <input 
           type="text"
           id={array[0]}
-          placeholder={array[0]}
+          placeholder={firstName}
           name={array[0]}
+          onChange={ (e) => setFirstName(e.target.value) }
         />
       </label>
       <label>{array[1]}
         <input 
           type="text"
           id={array[1]}
-          placeholder={array[1]}
+          placeholder={lastName}
           name={array[1]}
+          onChange={ (e) => setLastName(e.target.value) }
         />
       </label>
       <label>{array[2]}
         <input 
           type="text"
           id={array[2]}
-          placeholder={array[2]}
+          placeholder={phone}
           name={array[2]}
+          onChange={ (e) => setPhone(e.target.value) }
         />
       </label>
       <label>{array[3]}
         <input 
           type="text"
           id={array[3]}
-          placeholder={array[3]}
+          placeholder={email}
           name={array[3]}
+          onChange={ (e) => setEmail(e.target.value) }
         />
       </label>
       <button
-      // onClick = {something}
+      onClick = { () => sendContactObject(), onSubmitForm }
+      name={ props.title }
+      value={ props.title }
       
       >
         {props.title}
       </button>
-    </form>
+    </div>
     </>
   );
 }
