@@ -7,9 +7,9 @@ function App() {
     <div className="App">
       <header className="App-header">
        <h1> <img src={logo} className="App-logo" alt="logo" />PERN Contacts</h1>
-       <Search />
-       <AddContact />
-       <ViewAll />
+       <Search title ="Search"/>
+       <AddContact title = "Add Contact" />
+       <ViewAll title ="All Contacts"/>
       </header>
     </div>
   );
@@ -17,21 +17,29 @@ function App() {
 
 const Search = (props) => {
   return(
+    <>
+    <h2>{props.title}</h2>
     <form>
-      <label>Search
+      <label>{props.title}
         <input 
           type="text"
         />
       </label>
-      <button 
-        // onClick = {something}
-      />
+      <button
+      // onClick = {something}
+      
+      >
+        {props.title}
+      </button>
     </form>
+    </>
   );
 }
 
 const ViewAll = (props) => {
   return(
+  <>
+  <h2>{props.title}</h2>
   <table>
     <thead>
       <tr>
@@ -55,21 +63,30 @@ const ViewAll = (props) => {
     } */}
     </tbody>
   </table>
+  </>
   );
 }
 
 const AddContact = (props) => {
   return(
+    <>
+    <h2>{props.title}</h2>
     <form>
       <label>first name
         <input 
           type="text"
         />
       </label>
-      <button 
-        // onClick = {something}
-      />
+
+
+      <button
+      // onClick = {something}
+      
+      >
+        {props.title}
+      </button>
     </form>
+    </>
   );
 }
 
