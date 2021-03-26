@@ -8,9 +8,9 @@ function App() {
     <div className="App">
       <header className="App-header">
        <h1> <img src={logo} className="App-logo" alt="logo" />PERN Contacts</h1>
-       <Search title ="Search"/>
        <AddContact title = "Add Contact" />
-       <ViewAll title ="All Contacts"/>
+       <Search title ="Search"/>
+       {/* <ViewAll title ="All Contacts"/> */}
       </header>
     </div>
   );
@@ -58,7 +58,7 @@ const AddContact = (props) => {
         })
         console.log(response);
         console.log(contactObject);
-        window.location = "/"; // refresh after done sending
+        // window.location = "/"; // refresh after done sending
       } catch (error) {
         console.error(error.message);  
       }
@@ -169,10 +169,14 @@ const ViewAll = (props) => {
 
 const Search = (props) => {
 
+  const [ contacts, setContacts ] = useState([]);
+
   const [searching, setSearch] = useState("");
     useEffect( () => {
       console.log("search changed", {searching})
     }, [searching] );
+
+  // const [all, setAll] = useState(false);
 
   const onSubmitSearch = async (e) => {
       let search  = "%"+searching+"%";
@@ -184,7 +188,34 @@ const Search = (props) => {
           method: "POST", // fetch makes GET request by default
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(body)
-        })
+        });
+        const jsonData = await response.json();
+        setContacts(jsonData);
+        console.log(jsonData);
+        
+        console.log(response);
+        console.log(searchObject);
+        
+        // window.location = "/"; // refresh after done sending
+      } catch (error) {
+        console.error(error.message);  
+      }
+    }
+
+  const onSubmit0Search = async (e) => {
+      let search  = "%%";
+      let searchObject = { search };
+      e.preventDefault(); // prevents refreshing
+      try {
+        const body = searchObject ;
+        const response = await fetch("http://localhost:5000/lastname", {
+          method: "POST", // fetch makes GET request by default
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body)
+        });
+        const jsonData = await response.json();
+        setContacts(jsonData);
+        console.log(jsonData);
         
         console.log(response);
         console.log(searchObject);
@@ -215,7 +246,38 @@ const Search = (props) => {
       >
         {props.title}
       </button>
+
+      <button
+      onClick = { onSubmit0Search }
+      >
+        View All
+      </button>
     </div>
+
+    <h2>{props.title} Results</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>first name</th>
+        <th>last name</th>
+        <th>phone</th>
+        <th>email</th>
+      </tr>
+    </thead>
+    <tbody>
+    { contacts.map( contact => (
+      <tr>
+        <td>{contact.id}</td>
+        <td>{contact.first_name}</td>
+        <td>{contact.last_name}</td>
+        <td>{contact.phone_number}</td>
+        <td>{contact.email}</td>
+      </tr>
+    ) )
+    }
+    </tbody>
+  </table>
     </>
   );
 }
