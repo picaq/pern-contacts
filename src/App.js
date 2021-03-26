@@ -168,24 +168,54 @@ const ViewAll = (props) => {
 }
 
 const Search = (props) => {
+
+  const [searching, setSearch] = useState("");
+    useEffect( () => {
+      console.log("search changed", {searching})
+    }, [searching] );
+
+  const onSubmitSearch = async (e) => {
+      let search  = "%"+searching+"%";
+      let searchObject = { search };
+      e.preventDefault(); // prevents refreshing
+      try {
+        const body = searchObject ;
+        const response = await fetch("http://localhost:5000/lastname", {
+          method: "POST", // fetch makes GET request by default
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body)
+        })
+        
+        console.log(response);
+        console.log(searchObject);
+        
+        // window.location = "/"; // refresh after done sending
+      } catch (error) {
+        console.error(error.message);  
+      }
+    }
+
+
+
   return(
     <>
     <h2>{props.title}</h2>
-    <form>
+    <div>
       <label>{props.title}
         <input 
           type="text"
+          placeholder="search by last name"
+          onChange={ (e) => setSearch(e.target.value) }
         />
       </label>
 
 
       <button
-      // onClick = {something}
-      
+      onClick = { onSubmitSearch }
       >
         {props.title}
       </button>
-    </form>
+    </div>
     </>
   );
 }

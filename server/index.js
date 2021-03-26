@@ -36,7 +36,7 @@ app.post("/contact", async(req, res) => {
 
 // get a contact
 
-app.get("/lastname", async(req, res) => {
+app.post("/lastname", async(req, res) => {
     try {
         const { search } = req.body;
         const allContacts = await pool.query(`
