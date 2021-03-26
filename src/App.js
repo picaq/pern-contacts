@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  
   return (
     <div className="App">
       <header className="App-header">
@@ -15,14 +16,42 @@ function App() {
   );
 }
 
-const Search = (props) => {
+const AddContact = (props) => {
+  let array = ["first name", "last name", "phone", "email"];
   return(
     <>
     <h2>{props.title}</h2>
     <form>
-      <label>{props.title}
+      <label>{array[0]}
         <input 
           type="text"
+          id={array[0]}
+          placeholder={array[0]}
+          name={array[0]}
+        />
+      </label>
+      <label>{array[1]}
+        <input 
+          type="text"
+          id={array[1]}
+          placeholder={array[1]}
+          name={array[1]}
+        />
+      </label>
+      <label>{array[2]}
+        <input 
+          type="text"
+          id={array[2]}
+          placeholder={array[2]}
+          name={array[2]}
+        />
+      </label>
+      <label>{array[3]}
+        <input 
+          type="text"
+          id={array[3]}
+          placeholder={array[3]}
+          name={array[3]}
         />
       </label>
       <button
@@ -67,12 +96,12 @@ const ViewAll = (props) => {
   );
 }
 
-const AddContact = (props) => {
+const Search = (props) => {
   return(
     <>
     <h2>{props.title}</h2>
     <form>
-      <label>first name
+      <label>{props.title}
         <input 
           type="text"
         />
