@@ -119,6 +119,24 @@ const AddContact = (props) => {
 }
 
 const ViewAll = (props) => {
+
+  const [ contacts, setContacts ] = useState([]);
+
+  const getContacts = async() => {
+    try {
+      const response = await fetch("http://localhost:5000/contact");
+      const jsonData = await response.json();
+      setContacts(jsonData);
+      console.log(jsonData);
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
+
+  useEffect( () => {
+    getContacts();
+  }, []);
+
   return(
   <>
   <h2>{props.title}</h2>
@@ -133,16 +151,16 @@ const ViewAll = (props) => {
       </tr>
     </thead>
     <tbody>
-    {/* { contacts.map( contact => (
+    { contacts.map( contact => (
       <tr>
         <td>{contact.id}</td>
-        <td>{contact.time_seen}</td>
+        <td>{contact.first_name}</td>
         <td>{contact.last_name}</td>
         <td>{contact.phone_number}</td>
         <td>{contact.email}</td>
       </tr>
     ) )
-    } */}
+    }
     </tbody>
   </table>
   </>
