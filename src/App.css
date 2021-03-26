@@ -1,3 +1,7 @@
+:root {
+  --light: whitesmoke;
+}
+
 .App {
   text-align: center;
 }
@@ -24,7 +28,7 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: var(--light);
 }
 
 .App-link {
@@ -38,4 +42,15 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+
+label {
+  display: inline-block;
+  margin: .2em auto;
+}
+
+button, input {
+  background: var(--light);
+  margin-left: .5em;
 }
