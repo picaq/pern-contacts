@@ -24,7 +24,50 @@ const Search = (props) => {
         />
       </label>
       <button 
-        onClick = {something}
+        // onClick = {something}
+      />
+    </form>
+  );
+}
+
+const ViewAll = (props) => {
+  return(
+  <table>
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>first name</th>
+        <th>last name</th>
+        <th>phone</th>
+        <th>email</th>
+      </tr>
+    </thead>
+    <tbody>
+    {/* { contacts.map( contact => (
+      <tr>
+        <td>{contact.id}</td>
+        <td>{contact.time_seen}</td>
+        <td>{contact.last_name}</td>
+        <td>{contact.phone_number}</td>
+        <td>{contact.email}</td>
+      </tr>
+    ) )
+    } */}
+    </tbody>
+  </table>
+  );
+}
+
+const AddContact = (props) => {
+  return(
+    <form>
+      <label>first name
+        <input 
+          type="text"
+        />
+      </label>
+      <button 
+        // onClick = {something}
       />
     </form>
   );
