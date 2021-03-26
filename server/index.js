@@ -1,0 +1,63 @@
+const express = require("express");
+const app = express();
+const cors = require("cors");
+const pool = require("./db");
+
+app.use(cors());
+// gives access to request body to get json data
+app.use(express.json());
+
+app.listen(5000, () => {
+    console.log("server has started on port 5000")
+});
+
+
+// ROUTES
+
+// create a contact
+app.post("/contact", async(req, res) => {
+    try {
+        // console.log(req.body);
+        const { first_name, last_name, phone_number, email } = req.body;
+        const newContact = await pool.query(`
+        INSERT INTO contacts(first_name, last_name, phone_number, email)
+        VALUES($1, $2, $3, $4)
+        RETURNING *;
+        `,
+         [first_name, last_name, phone_number, email]
+        );
+
+        res.json(newContact.rows[0]);       
+    } catch (err) {
+        console.log(err.message);
+    }
+});
+
+
+// get a contact
+
+app.get("/lastname", async(req, res) => {
+    try {
+        const { search } = req.body;
+        const allContacts = await pool.query(`
+            SELECT * FROM contacts
+            WHERE LOWER(last_name) LIKE LOWER($1)
+        `, [search]);
+        res.json(allContacts.rows); // returns an array
+    } catch (error) {
+        console.error(error.message);
+    }
+});
+
+
+// get all contacts
+// this must be listed last or else all requests after this will not work
+app.get("/contact", async(req, res) => {
+    try {
+        const allContacts = await pool.query("SELECT * FROM contacts");
+        res.json(allContacts.rows); // returns an array
+    } catch (error) {
+        console.error(error.message);
+    }
+});
+
