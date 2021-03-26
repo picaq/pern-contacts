@@ -195,7 +195,8 @@ const Search = (props) => {
         
         console.log(response);
         console.log(searchObject);
-        
+        setStuff(jsonData);
+
         // window.location = "/"; // refresh after done sending
       } catch (error) {
         console.error(error.message);  
@@ -219,14 +220,14 @@ const Search = (props) => {
         
         console.log(response);
         console.log(searchObject);
-        
+        setStuff(jsonData);
         // window.location = "/"; // refresh after done sending
       } catch (error) {
         console.error(error.message);  
       }
     }
-
-
+  
+  const [stuff, setStuff] = useState([]);
 
   return(
     <>
@@ -254,8 +255,8 @@ const Search = (props) => {
       </button>
     </div>
 
-    <h2>{props.title} Results</h2>
-  <table>
+    <h2>{ stuff.length > 0 ? "" : "No" } {props.title} Results</h2>
+      { stuff.length > 0 ? <table>
     <thead>
       <tr>
         <th>id</th>
@@ -277,7 +278,7 @@ const Search = (props) => {
     ) )
     }
     </tbody>
-  </table>
+  </table> : <p> No results found </p> }
     </>
   );
 }
