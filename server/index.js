@@ -19,15 +19,28 @@ app.post("/contact", async(req, res) => {
     try {
         // console.log(req.body);
         const { first_name, last_name, phone_number, email } = req.body;
-        const newContact = await pool.query(`
-        INSERT INTO contacts(first_name, last_name, phone_number, email)
-        VALUES($1, $2, $3, $4)
-        RETURNING *;
-        `,
-         [first_name, last_name, phone_number, email]
-        );
+        // const checkContact = await pool.query(`
+        // SELECT first_name, last_name, phone_number, email 
+        // FROM contacts 
+        // WHERE ( first_name = $1 AND last_name = $2 AND ( phone_number = $3 OR email = $4 ) 
+        // `,
+        //  [first_name, last_name, phone_number, email]
+        // // );
 
-        res.json(newContact.rows[0]);       
+        // if ( checkContact.length > 0 )  {
+        //     res.json({"error":`${first_name} ${last_name} already exists`})
+        // } else {
+            const newContact = await pool.query(`
+            INSERT INTO contacts(first_name, last_name, phone_number, email)
+            VALUES($1, $2, $3, $4)
+            RETURNING *;
+            `,
+            [first_name, last_name, phone_number, email]
+            );
+
+            // res.json(checkContact.rows[0]);       
+            res.json(newContact.rows[0]);  
+        // }     
     } catch (err) {
         console.log(err.message);
     }
