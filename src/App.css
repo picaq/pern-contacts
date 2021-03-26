@@ -54,3 +54,8 @@ button, input {
   background: var(--light);
   margin-left: .5em;
 }
+
+label {
+  margin-right: .75em;
+  padding-left: .25em;
+}
