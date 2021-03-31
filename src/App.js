@@ -60,7 +60,7 @@ const AddContact = (props) => {
     e.preventDefault(); // prevents refreshing
     try {
       const body = contactObject;
-      const response = await fetch("http://localhost:5000/contact", {
+      const response = await fetch("/contact", {
         method: "POST", // fetch makes GET request by default
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
@@ -134,7 +134,7 @@ const ViewAll = (props) => {
 
   const getContacts = async () => {
     try {
-      const response = await fetch("http://localhost:5000/contact");
+      const response = await fetch("/contact");
       const jsonData = await response.json();
       setContacts(jsonData);
       console.log(jsonData);
@@ -192,7 +192,7 @@ const Search = (props) => {
     e.preventDefault(); // prevents refreshing
     try {
       const body = searchObject;
-      const response = await fetch("http://localhost:5000/lastname", {
+      const response = await fetch("/lastname", {
         method: "POST", // fetch makes GET request by default
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
@@ -217,7 +217,7 @@ const Search = (props) => {
     e.preventDefault(); // prevents refreshing
     try {
       const body = searchObject;
-      const response = await fetch("http://localhost:5000/lastname", {
+      const response = await fetch("/lastname", {
         method: "POST", // fetch makes GET request by default
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
