@@ -2,10 +2,10 @@ CREATE DATABASE perncontacts;
 
 CREATE TABLE contacts (
     id SERIAL PRIMARY KEY,
-    first_name VARCHAR(1000),
-    last_name VARCHAR(775),
-    phone_number VARCHAR(31),
-    email VARCHAR(320)
+    first_name VARCHAR,
+    last_name VARCHAR,
+    phone_number VARCHAR,
+    email VARCHAR
 );
 
 -- This app should have 4 input fields, first_name, last_name, phone_number, email.
