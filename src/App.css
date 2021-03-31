@@ -11,7 +11,7 @@
   height: 2.2em;
   pointer-events: none;
   vertical-align: middle;
-  margin-right: -.4em;
+  margin-right: -0.4em;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -44,18 +44,18 @@
   }
 }
 
-
 label {
   display: inline-block;
-  margin: .2em auto;
+  margin: 0.2em auto;
 }
 
-button, input {
+button,
+input {
   background: var(--light);
-  margin-left: .5em;
+  margin-left: 0.5em;
 }
 
 label {
-  margin-right: .75em;
-  padding-left: .25em;
+  margin-right: 0.75em;
+  padding-left: 0.25em;
 }
