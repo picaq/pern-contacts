@@ -60,7 +60,7 @@ const AddContact = (props) => {
     e.preventDefault(); // prevents refreshing
     try {
       const body = contactObject;
-      const response = await fetch("/contact", {
+      const response = await fetch("/contacts", {
         method: "POST", // fetch makes GET request by default
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
@@ -134,7 +134,7 @@ const ViewAll = (props) => {
 
   const getContacts = async () => {
     try {
-      const response = await fetch("/contact");
+      const response = await fetch("/contacts");
       const jsonData = await response.json();
       setContacts(jsonData);
       console.log(jsonData);
