@@ -11,21 +11,17 @@ app.use(express.json());
 
 // get all contacts
 app.get("/contacts", async (req, res) => {
-  const { lastName } = req.query;
+  const { lastName = "" } = req.query;
 
   try {
-    const query =
-      lastName === undefined
-        ? db.query("SELECT * FROM contacts")
-        : db.query(
-            `
-            SELECT * FROM contacts
-            WHERE LOWER(last_name) LIKE LOWER($1)
-            `,
-            [lastName]
-          );
+    const contacts = await db.query(
+      `
+      SELECT * FROM contacts
+      WHERE LOWER(last_name) LIKE LOWER($1)
+      `,
+      [`%${lastName}%`]
+    );
 
-    const contacts = await query;
     res.json(contacts.rows); // returns an array
   } catch (error) {
     console.error(error.message);
