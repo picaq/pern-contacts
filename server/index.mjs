@@ -65,23 +65,6 @@ app.post("/contacts", async (req, res) => {
   }
 });
 
-// get a contact
-app.post("/lastname", async (req, res) => {
-  try {
-    const { search } = req.body;
-    const allContacts = await db.query(
-      `
-      SELECT * FROM contacts
-      WHERE LOWER(last_name) LIKE LOWER($1)
-      `,
-      [search]
-    );
-    res.json(allContacts.rows); // returns an array
-  } catch (error) {
-    console.error(error.message);
-  }
-});
-
 app.listen(5000, () => {
   console.log("server has started on port 5000");
 });
